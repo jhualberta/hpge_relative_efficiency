@@ -1,0 +1,19 @@
+# LeadBrick Box
+/mydet/PbBox/height    762 mm  # wysokosc  boxu
+/mydet/PbBox/length      762 mm  # dlugosc  boxu
+/mydet/PbBox/thickness  863.6 mm  # szerokosc  boxu
+
+# Detector box
+/mydet/DetBox/height     228.6  mm  #  8
+/mydet/DetBox/length     228.6  mm  #  8  
+/mydet/DetBox/thickness  330.   mm  #  12 
+
+# GeDet 
+/mydet/GeDet/height     90.1  mm  # 5
+/mydet/GeDet/radius    43.55   mm  # 3  
+
+# Cooper frame
+/mydet/CuBox/height     355.6  mm  # 14
+/mydet/CuBox/length     254.   mm  # 10  
+/mydet/CuBox/thickness  254.   mm  # 10 
+

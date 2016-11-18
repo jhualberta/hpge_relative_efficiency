@@ -1,0 +1,304 @@
+///////////////////////////////////
+///  Class: GeDetectorMaterials
+///  autor: Aleksandra Bialek 
+///  Modified: Spencer Axani Summer 2012
+///////////////////////////////////
+
+//#include "G4NistManager.hh"
+
+//-----------------------
+//--- Material definition
+//-----------------------
+ 
+G4double a;  // atomic mass
+G4double z;  // atomic number
+G4double density, temperature, pressure, abundance, fractionmass;
+G4String name, symbol;
+G4int nel, n, iz;
+
+//---------   Isotopes ---------------------------------------------------------------      
+//
+//                        All atomic masses taken from :
+//
+// "The 1995 update to the atomic mass evaluation"  by G.Audi and A.H.Wapstra
+//       Nuclear Physics A595 vol. 4 p.409-480, December 25, 1995.             
+//------------------------------------------------------------------------------------
+
+G4Isotope* H1 = new G4Isotope(name="Prot", iz=1, n=1, a=1.007825032*g/mole);
+G4Isotope* H2 = new G4Isotope(name="Deuter", iz=1, n=2, a=2.014101778*g/mole);
+
+G4Isotope* He3 = new G4Isotope(name="Hel3", iz=2, n=3, a=3.016029310*g/mole);
+G4Isotope* He4 = new G4Isotope(name="Hel4", iz=2, n=4, a=4.002603250*g/mole);
+
+G4Isotope* Li6 = new G4Isotope(name="Lit6", iz=3, n=6, a=6.015122281*g/mole);
+G4Isotope* Li7 = new G4Isotope(name="Lit7", iz=3, n=7, a=7.016004049*g/mole);
+
+G4Isotope* B10 = new G4Isotope(name="Bor10", iz=5, n=10, a=10.012937027*g/mole);
+G4Isotope* B11 = new G4Isotope(name="Bor11", iz=5, n=11, a=11.009305466*g/mole);
+
+G4Isotope* C12 = new G4Isotope(name="Carbon12", iz=6, n=12, a=12.*g/mole);
+G4Isotope* C13 = new G4Isotope(name="Carbon13", iz=6, n=13, a= 13.003354838*g/mole);
+
+G4Isotope* N14 = new G4Isotope(name="Nitrogen14", iz=7, n=14, a=14.003074005*g/mole);
+G4Isotope* N15 = new G4Isotope(name="Nitrogen15", iz=7, n=15, a=15.000108898*g/mole);
+
+G4Isotope* O16 = new G4Isotope(name="Oxygen16", iz=8, n=16, a=15.994914622*g/mole);
+G4Isotope* O17 = new G4Isotope(name="Oxygen17", iz=8, n=17, a=16.999131501*g/mole);
+G4Isotope* O18 = new G4Isotope(name="Oxygen18", iz=8, n=18, a=17.999160419*g/mole);
+
+G4Isotope* Ti46 = new G4Isotope(name="Titanium46", iz=22, n=46, a= 45.953*g/mole);
+G4Isotope* Ti47 = new G4Isotope(name="Titanium47", iz=22, n=47, a= 46.952*g/mole);
+G4Isotope* Ti48 = new G4Isotope(name="Titanium48", iz=22, n=48, a= 47.948*g/mole);
+G4Isotope* Ti49 = new G4Isotope(name="Titanium49", iz=22, n=49, a= 48.948*g/mole);
+G4Isotope* Ti50 = new G4Isotope(name="Titanium50", iz=22, n=50, a= 49.945*g/mole);
+
+G4Isotope*F19 = new G4Isotope(name="F19",iz=9,n=19, a=18.998403205*g/mole);
+
+G4Isotope* Mg24 = new G4Isotope(name="Magnesium24", iz=12, n=24, a=23.985041898*g/mole);
+G4Isotope* Mg25 = new G4Isotope(name="Magnesium25", iz=12, n=25, a=24.985837023*g/mole);
+G4Isotope* Mg26 = new G4Isotope(name="Magnesuim26", iz=12, n=26, a=25.982593040*g/mole);
+
+G4Isotope* Al27 = new G4Isotope(name="Aluminium27",iz=13,n=27,a=26.981538441*g/mole);
+
+G4Isotope* Si28 = new G4Isotope(name="Silicon28", iz=14, n=28, a=27.976926533*g/mole);
+G4Isotope* Si29 = new G4Isotope(name="Silicon29", iz=14, n=29, a=28.976494719*g/mole);
+G4Isotope* Si30 = new G4Isotope(name="Silicon30", iz=14, n=30, a=29.973770218*g/mole);
+
+G4Isotope* Ca40 = new G4Isotope(name="Calcium40", iz=20, n=40, a=39.962591155*g/mole);
+G4Isotope* Ca42 = new G4Isotope(name="Calcium42", iz=20, n=42, a=41.958618337*g/mole);
+G4Isotope* Ca43 = new G4Isotope(name="Calcium43", iz=20, n=43, a=42.958766833*g/mole);
+G4Isotope* Ca44 = new G4Isotope(name="Calcium44", iz=20, n=44, a=43.955481094*g/mole);
+G4Isotope* Ca46 = new G4Isotope(name="Calcium46", iz=20, n=46, a=45.953692759*g/mole);
+G4Isotope* Ca48 = new G4Isotope(name="Calcium48", iz=20, n=48, a=47.952533512*g/mole);
+
+G4Isotope* Cr52 = new G4Isotope(name="Chrome58", iz=24, n=52, a=51.940511904*g/mole);
+G4Isotope* Cr50 = new G4Isotope(name="Chrome60", iz=24, n=50, a=49.946049607*g/mole);
+G4Isotope* Cr53 = new G4Isotope(name="Chrome61", iz=24, n=53, a=52.940653781*g/mole);
+G4Isotope* Cr54 = new G4Isotope(name="Chrome62", iz=24, n=54, a=53.938884921*g/mole);
+
+G4Isotope* Mn55 = new G4Isotope(name="Manganese55",iz=25, n=55,a=54.938049636*g/mole);
+
+G4Isotope* Fe54 = new G4Isotope(name="Iron54", iz=26, n=54, a=53.939614836*g/mole);
+G4Isotope* Fe56 = new G4Isotope(name="Iron56", iz=26, n=56, a=55.934942133*g/mole);
+G4Isotope* Fe57 = new G4Isotope(name="Iron57", iz=26, n=57, a=56.935398707*g/mole);
+G4Isotope* Fe58 = new G4Isotope(name="Iron58", iz=26, n=58, a=57.933280458*g/mole);
+
+G4Isotope* Ni58 = new G4Isotope(name="Nickel58", iz=28, n=58, a=57.935347922*g/mole);
+G4Isotope* Ni60 = new G4Isotope(name="Nickel60", iz=28, n=60, a=59.930790633*g/mole);
+G4Isotope* Ni61 = new G4Isotope(name="Nickel61", iz=28, n=61, a=60.931060442*g/mole);
+G4Isotope* Ni62 = new G4Isotope(name="Nickel62", iz=28, n=62, a=61.928348763*g/mole);
+G4Isotope* Ni64 = new G4Isotope(name="Nickel64", iz=28, n=64, a=63.927969574*g/mole);
+
+G4Isotope* Mo92 = new G4Isotope(name="Molybdenum92",iz=42,n=92,a=91.906810480*g/mole);
+G4Isotope* Mo94 = new G4Isotope(name="Molybdenum94",iz=42,n=94,a=93.905087578*g/mole);
+G4Isotope* Mo95 = new G4Isotope(name="Molybdenum95",iz=42,n=95,a=94.905841487*g/mole);
+G4Isotope* Mo96 = new G4Isotope(name="Molybdenum96",iz=42,n=96,a=95.904678904*g/mole);
+G4Isotope* Mo97 = new G4Isotope(name="Molybdenum97",iz=42,n=97,a=96.906021033*g/mole);
+G4Isotope* Mo98 = new G4Isotope(name="Molybdenum98",iz=42,n=98,a=97.905407846*g/mole);
+G4Isotope* Mo100 = new G4Isotope(name="Molybdenum100",iz=42,n=100,a=99.907477149*g/mole);
+
+G4Isotope* Au197 = new G4Isotope(name="Gold197", iz=79, n=197, a=196.966551609*g/mole);
+
+//Naturally occuring isotopes (for lead):
+//Pb-204 ( 1.4% , 1.4E+17 ) Pb-206( 24.1% ) Pb-207( 22.1% ) Pb-208( 52.4% ) 
+G4Isotope* Pb204 = new G4Isotope(name="Lead204", iz=82, n=204, a=203.9730288*g/mole);
+G4Isotope* Pb206 = new G4Isotope(name="Lead206", iz=82, n=206, a=205.9744490*g/mole);
+G4Isotope* Pb207 = new G4Isotope(name="Lead207", iz=82, n=207, a=206.9758806*g/mole);
+G4Isotope* Pb208 = new G4Isotope(name="Lead208", iz=82, n=208, a=207.9766359*g/mole);
+
+
+//---------   Elements ---------------------------------------------------------------
+//
+//                        All abundances taken from :
+//
+//                           Isotopic Abundance 
+//              P. De Bievre and P.D.P. Taylor, Int. J. Mass 
+//                 Spectrom. Ion Phys. 123, 149 (1993). 
+//
+
+G4Element* elH = new G4Element(name="Hydrogen", symbol="H", nel=2);
+ elH->AddIsotope(H1, abundance=99.985*perCent); 
+ elH->AddIsotope(H2, abundance=0.015*perCent);   
+
+G4Element* elHe = new G4Element(name="Helium", symbol="He", nel=2);
+ elHe->AddIsotope(He4, abundance=99.999863*perCent); 
+ elHe->AddIsotope(He3, abundance= 0.000137*perCent);   
+
+
+G4Element* elLi = new G4Element(name="Enriched Lithium", symbol="Li", nel=2);  
+ elLi->AddIsotope(Li6, abundance=90.*perCent); 
+ elLi->AddIsotope(Li7, abundance=10.*perCent);  
+
+G4Element* elB = new G4Element(name="Bor", symbol="B", nel=2);
+ elB->AddIsotope(B10, abundance=19.9*perCent); 
+ elB->AddIsotope(B11, abundance=80.1*perCent);   
+
+G4Element* elC = new G4Element(name="Carbon", symbol="C", nel=2);
+ elC->AddIsotope(C12, abundance=98.90*perCent); 
+ elC->AddIsotope(C13, abundance=1.10*perCent);   
+ 
+G4Element* elN = new G4Element(name="Nitrogen", symbol="N", nel=2);
+ elN->AddIsotope(N14, abundance=99.63*perCent); 
+ elN->AddIsotope(N15, abundance=0.37*perCent);     
+
+G4Element* elO = new G4Element(name="Oxygen", symbol="O", nel=3);
+ elO->AddIsotope(O16, abundance=99.762*perCent); 
+ elO->AddIsotope(O17, abundance=0.038*perCent);   
+ elO->AddIsotope(O18, abundance=0.200*perCent);   
+
+G4Element* elTi = new G4Element(name="Titanium", symbol="Ti", nel=5);
+ elTi->AddIsotope(Ti46, abundance=8.01*perCent);
+ elTi->AddIsotope(Ti47, abundance=7.31*perCent);
+ elTi->AddIsotope(Ti48, abundance=73.81*perCent);
+ elTi->AddIsotope(Ti49, abundance=5.51*perCent);
+ elTi->AddIsotope(Ti50, abundance=5.41*perCent);
+
+G4Element* elF = new G4Element(name="Fluorine", symbol="F", nel=1);
+ elF->AddIsotope(F19,abundance=100*perCent);    
+
+G4Element* elMg = new G4Element(name="Magnesium", symbol="Mg", nel=3);
+ elMg->AddIsotope(Mg24, abundance=78.99*perCent); 
+ elMg->AddIsotope(Mg25, abundance=10.00*perCent);   
+ elMg->AddIsotope(Mg26, abundance=11.01*perCent);   
+
+G4Element* elAl = new G4Element(name="Aluminium", symbol="Al", nel=1);
+ elAl->AddIsotope(Al27, abundance=100*perCent);
+
+G4Element* elSi = new G4Element(name="Silicon", symbol="Si", nel=3);
+ elSi->AddIsotope(Si28, abundance=92.23*perCent); 
+ elSi->AddIsotope(Si29, abundance=4.67*perCent);   
+ elSi->AddIsotope(Si30, abundance=3.10*perCent);   
+
+G4Element* elCa = new G4Element(name="Calcium", symbol="Ca", nel=6);
+ elCa->AddIsotope(Ca40, abundance=96.941*perCent); 
+ elCa->AddIsotope(Ca42, abundance=0.647*perCent);   
+ elCa->AddIsotope(Ca43, abundance=0.135*perCent);   
+ elCa->AddIsotope(Ca44, abundance=2.086*perCent);   
+ elCa->AddIsotope(Ca46, abundance=0.004*perCent);   
+ elCa->AddIsotope(Ca48, abundance=0.187*perCent);   
+
+G4Element* elCr = new G4Element(name="Chromium", symbol="Cr", nel=4);
+ elCr->AddIsotope(Cr52, abundance=83.789*perCent); 
+ elCr->AddIsotope(Cr50, abundance=4.345*perCent);   
+ elCr->AddIsotope(Cr53, abundance=9.501*perCent);   
+ elCr->AddIsotope(Cr54, abundance=2.365*perCent);  
+
+G4Element* elFe = new G4Element(name="Iron", symbol="Fe", nel=4);
+ elFe->AddIsotope(Fe54, abundance=5.845*perCent);
+ elFe->AddIsotope(Fe56, abundance=91.754*perCent);
+ elFe->AddIsotope(Fe57, abundance=2.119*perCent);
+ elFe->AddIsotope(Fe58, abundance=0.282*perCent);
+
+G4Element* elMn = new G4Element(name="Manganese",symbol="Mn",nel=1);
+ elMn->AddIsotope(Mn55,abundance=100.*perCent);
+
+G4Element* elNi = new G4Element(name="Nickel", symbol="Ni", nel=5);
+ elNi->AddIsotope(Ni58, abundance=68.077*perCent); 
+ elNi->AddIsotope(Ni60, abundance=26.223*perCent);   
+ elNi->AddIsotope(Ni61, abundance=1.140*perCent);   
+ elNi->AddIsotope(Ni62, abundance=3.634*perCent);   
+ elNi->AddIsotope(Ni64, abundance=0.926*perCent);   
+
+G4Element* elMo = new G4Element(name="Molybdenum",symbol="Mo",nel=7);
+ elMo->AddIsotope(Mo92, abundance=14.84*perCent);
+ elMo->AddIsotope(Mo94, abundance=9.25*perCent);
+ elMo->AddIsotope(Mo95, abundance=15.92*perCent);
+ elMo->AddIsotope(Mo96, abundance=16.68*perCent);
+ elMo->AddIsotope(Mo97, abundance=9.55*perCent);
+ elMo->AddIsotope(Mo98, abundance=24.13*perCent);
+ elMo->AddIsotope(Mo100,abundance=9.63*perCent);
+
+G4Element* elGold = new G4Element(name="Gold", symbol="Au", nel=1);
+ elGold->AddIsotope(Au197, abundance=100.0*perCent);
+
+G4Element* elLead = new G4Element(name="Lead", symbol="Pb", nel=4);
+ elLead->AddIsotope(Pb204,abundance=1.4*perCent);
+ elLead->AddIsotope(Pb206,abundance=24.1*perCent);
+ elLead->AddIsotope(Pb207,abundance=22.1*perCent);
+ elLead->AddIsotope(Pb208,abundance=52.4*perCent);
+
+//------------------------------------------------------------------------- 
+//---------   Materials ---------------------------------------------------
+//-------------------------------------------------------------------------
+//Air
+density = 1.29*mg/cm3;
+G4Material* Air = new G4Material(name="Air", density, nel=2); 
+ Air->AddElement(elN, .7);
+ Air->AddElement(elO, .3);
+//-------------------------------------------------------------------------
+//Stainless Steel
+density= 7.8*g/cm3;
+G4Material* SS= new G4Material(name="Stainless Steel",density,nel=4);
+SS->AddElement(elCr, fractionmass=0.10);
+SS->AddElement(elFe, fractionmass=0.84);
+SS->AddElement(elNi, fractionmass=0.04);
+SS->AddElement(elC,  fractionmass=0.02);
+//-------------------------------------------------------------------------
+//Vacuum
+density     = universe_mean_density;    //from PhysicalConstants.h
+pressure    = 3.e-18*pascal;
+temperature = 2.73*kelvin;
+G4Material* Vacuum = new G4Material(name="Vacuum", z=1., a=1.01*g/mole, density, kStateGas,temperature,pressure);
+//-------------------------------------------------------------------------
+//Aluminium
+density = 2700*kg/m3;
+G4Material* Aluminium = new G4Material(name="Al", density, nel=1);
+ Aluminium->AddElement(elAl,1.0);
+//-------------------------------------------------------------------------
+// LAB 
+density= 0.8758*g/cm3;
+G4Material* PC= new G4Material(name="pseudocumene",density,nel=2);
+PC->AddElement(elC, fractionmass=0.8994);
+PC->AddElement(elH, fractionmass=0.1006);
+//-------------------------------------------------------------------------
+//PPO
+density= 1.06*g/cm3;
+G4Material* PPO= new G4Material("ppo",density,nel=4);
+PPO->AddElement(elC,fractionmass=0.8142);
+PPO->AddElement(elH,fractionmass=0.0501);
+PPO->AddElement(elN,fractionmass=0.0633);
+PPO->AddElement(elO,fractionmass=0.0723);
+//-------------------------------------------------------------------------
+//LAB+PPO scintillator
+density= 0.876*g/cm3;
+G4Material* LABPPO = new G4Material(name="labppo_scintillator",density,nel=2);
+LABPPO->AddMaterial(PC,fractionmass=0.99829);
+LABPPO->AddMaterial(PPO,fractionmass=0.001709);
+//-------------------------------------------------------------------------
+//Lead
+density=11.34*g/cm3;
+G4Material*Lead = new G4Material(name="Pb",density,nel=1);
+ Lead->AddElement(elLead,1.0);
+//-------------------------------------------------------------------------
+//Germanium
+density= 5.323*g/cm3;
+G4Material* Ge= new G4Material("Germanium" ,z=32., a= 72.61*g/mole, density);
+//-------------------------------------------------------------------------
+//Nitrogen
+density = 1.13*kg/m3;
+G4Material* Nitrogen = new G4Material(name="Nitrogen", density, nel=1);
+ Nitrogen->AddElement(elN,1.0);
+//-------------------------------------------------------------------------
+//Copper
+G4Material* Cu = new G4Material("Copper", 29., 63.55*g/mole, 8.96*g/cm3);
+
+//-------------------------------------------------------------------------
+// Cobalt Source material taken from GEANT4 database
+//G4NistManager* man = G4NistManager::Instance();
+
+//G4Material* CoSrcMaterial = man->FindOrBuildMaterial("G4_PLASTIC_SC_VINYLTOLUENE");
+
+//--------------------------------
+//----  Usage  -------------------
+//--------------------------------
+G4Material* WorldMaterial    = Air;
+G4Material* PbBoxMaterial    = Lead;
+G4Material* VacMaterial      = Vacuum;
+G4Material* NitrogenMaterial = Nitrogen;
+G4Material* GeDetFMaterial   = Aluminium;
+G4Material* GeDetMaterial    = Ge;
+G4Material* ScintMaterial    = LABPPO;
+G4Material* CuBoxMaterial    = Cu;
+G4Material* SSMaterial       = SS;
+
+//-----------------------------------------------------

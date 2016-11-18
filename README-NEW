@@ -1,0 +1,138 @@
+Current README File for simulation
+Author: Pawel Mekarski
+December 2013
+
+README-OLD has information regarding the previous iteration of this simulation.  It has been heavily modified since then, but this file may provide more information in regards to certain aspects when this simulation is to be modified in the future
+
+Description:
+------------
+This simulation is of the HPGe detector in the L2 lab.  It is specifically designed to easiliy obtain a relative efficiency curve for a specified source geometry.  This is useful in determining more accurate true activities of samples that arrive in more complex geometries.  The process on how to use the simulation is described.
+
+----------------------------
+-- Table of Contents -------
+----------------------------
+
+I   Running the simulation
+II  Macro file choices 
+III Custom macro commands
+IV  Simulation Ouput
+V   Adding sources
+
+----------------------------
+----------------------------
+
+----------------------------
+-- I   Running the simulation
+----------------------------
+Simply, execute the commands:
+
+source configure.sh
+./RunGeDet
+
+
+The file RunGeDet contains the commands which will call the executable and macro input file.
+
+make && GeDet geom.g4mac genRelCurve.mac
+make && GeDet ********** ***macro_file**
+
+There are several premade macro files which can be used here.  To run a different macro file, simply change the file name in this RunGeDetFile.
+
+----------------------------
+-- II  Macro file choices 
+----------------------------
+
+********** genSourceCurve.mac ***********
+This file generates a PointSource_Reference.txt file which is an efficiency curve for the different energies specified in the .mac file.  This file is used by the simulation to compare other sample geometries to.
+
+********** genRelCurve.mac **************
+This file generates a .txt file (with specified name) which is the relative efficiency curve for the chosen geometry.  It compares the counts from the sample geoemtry to the counts from the point source geoemtry to generate the curve.
+
+A PointSource_Reference.txt file must exist already and have an efficiency at every energy that is called by this macro file.  If a simulation is made for an energy that doesn't exist, no relative efficiency will be outputted.  (Simulation will still work however)
+
+********** genVisualization.mac *********
+This file opens an OpenGL window and shows the visualization of the system.  It will still generate a output relative efficiency curve for the energies given and acts the same way as genRelCurve.mac in every aspect.
+
+********** genIsotope.mac ***************
+This file is to be used to generate spectra for designated isotopes.  The relative efficiency calculation code is not fully tested for an isotope source and any such data should not be used currently.  To get relative efficiencies for the peak energies, use the standard gamma ray source procedure.
+
+----------------------------
+-- III Custom macro commands
+----------------------------
+
+***** /mydet/sourceName (name) 
+This command specifies the name of the sample geometry to use.  The list of choices are the names given in the src/GeSourceConstructor.cc file.  If an improper name is given (or misspelled), it runs the default "Point" source geoemtry (which can also be called by name).
+
+***** /analysis/genSourceFile (true/false)
+This commands tells the analysis class whether or not this is a point source run and therefore to create the reference file.  This command should not be modified between the genRelCurve and genSourceCurve files.
+
+***** /analysis/fileName (name)
+This command gives the simulation a file name which will be used to label all of the output files.  This includes the .root files and the .txt relative efficiency curve file.  See output section for more details on simulation files created.
+
+***** /gun/MomentumRandom (on/off)
+This command tells the particle generator whether or not to given them uniformally random directions).  This is used to mimic radioactive decay when only a gamma source is used.  When using a gamma source, it should be on, for isotopes, should be off.  The code to give random directions based off this flag is located within the GePrimaryGeneratorAction.cc class.
+
+----------------------------
+-- IV  Simulation Ouput
+----------------------------
+
+*** All simulation output is put automatically into the ./output/ subdirectory.
+
+This simulation has been designed to handle multiple runs without problems.  The output from each simulation is a follows.
+
+Given a file name "fileName" with the /analysis/fileName command, the following are output.
+
+***** Root files: *********
+fileName_1.root
+fileName_2.root
+fileName_3.root
+....
+
+These root files contain the unaltered spectrum and the gaussian smeared spectrum for the simulation run.  They are generated for each and every run, regarless of input commands.  If they are not needed, they can be deleted as to not clutter the output directory.
+
+These files are named sequentially, where the number corresponds to the run #, starting with 1.
+
+***** PointSource_Reference.txt *****
+This file is generated when the genSourceCurve macro is used.  It contains the data needed to generate relative curves in later runs.  The columns include the energy, number of gammas produced at that energy and number of full deposition gammas recorded for that energy.
+
+***** fileName.txt *****
+This file is generated for every run other than a point source curve run.  It contains a column for the energy and another for the relative efficiency at that energy compared to the point source.  The simulation reads the PointSource_Reference.txt file and performs the necessary calculations using that data.
+
+----------------------------
+-- V   Adding sources
+----------------------------
+
+The process of adding sources to this simulation will be explained.  Background knowledge of geometry definitions within Geant will be needed.
+
+The sources are to be added within the src/GeSourceConstructor class.  All of the code relavant to each source is located within this file.
+
+Each source is given a name, which is called by the macro command: mydet/sourceName
+This name is added to the if, else if statement in the main part of this class.  To add a source, put all the definitions within an else if statement with your source name.  One of the "Extra#" statements can be renamed and used.
+
+The source geometry is defined as usual in Geant, it is just now located here.  The different parts of the geometry definition will be described here, as it included extra notes:
+
+1.  Material definition
+
+Materials can either be defined in the GeMatierals.icc file (for example see "C_Clamp") or directly within the else if statement (ex. see "Piezo3")
+
+2.  Variables
+
+Ideally, all variables should be defined in the else if statment and put into variables all at once.  This will make it easier for future users to see and change the geometry.  These variables are to be defined locally to prevent possible future interference and memory usage.
+
+3.  Solids
+
+Solids are defined here as normal with the note that they are all created locally.  This includes the solid, logical, and physical volumes.  For positioning of the sample, the vector sourceVectorOffset located at the top of the class, can be used.  It points to the centre of the top of the Ge end cap
+
+4.  Visualization Attributes
+
+Visuilization attributes should be attached the logical volumes also within the else if statement.  A list of shared attributes is included at the top of the class.  These can be used or others can be added to this list and used.
+
+5.  Source definition (for General Particle Source)
+
+***** Major difference here ******
+The source definitions are to be defined here within the else if statement, instead of being in the macro files.  This makes it much easier for future users to run your defined sources.
+
+See previous examples for specifics on how to code this in.  Essentially, you read the values for positions and sizes for the source geometry from the variables that were defined.  These are then put into strings that put them at the end of macro commands.  These are passed through the UI manager as UI commands as they would be typed into the macro files for simplicity.
+
+You are basically passing the macro commands to the simulation, but within the code itself.
+
+If needed, be sure to confine the source distribution to the proper physical volume here as well.  See examples in the previous sources.

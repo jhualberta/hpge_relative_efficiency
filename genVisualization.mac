@@ -1,0 +1,38 @@
+/vis/open OGLSX 1200x1080-0+0
+
+/vis/viewer/reset
+/vis/viewer/set/viewpointThetaPhi 80 260
+/vis/viewer/pan 0 0 cm
+/vis/viewer/zoom 6
+
+/vis/drawVolume
+
+/vis/viewer/addCutawayPlane 0 0 0 cm 0 1 0
+/vis/scene/add/trajectories
+
+/vis/viewer/set/style surface
+
+#/vis/viewer/set/autoRefresh false
+/vis/scene/endOfEventAction accumulate 1000
+
+# GREEN: x-axis, Blue: z-axis, RED: y-axis
+#/vis/scene/add/axes 0 0 0 50 mm
+/vis/sceneHandler/attach
+/vis/viewer/set/upVector 0.0 0.0 1.0 
+/vis/viewer/set/lightsVector 1 1 0
+
+/mydet/sourceName Point
+/analysis/genSourceFile false
+/analysis/fileName VisTest
+/gun/MomentumRandom on
+
+/run/initialize
+
+# Particle type
+#/gps/particle ion
+/gps/particle gamma
+
+# Energy
+/gps/energy 667. keV
+
+/run/beamOn 100

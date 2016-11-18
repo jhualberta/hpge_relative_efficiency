@@ -1,0 +1,14 @@
+
+/mydet/sourceName Marinelli
+/analysis/genSourceFile false
+/analysis/fileName Co60_source_Marinelli
+/gun/MomentumRandom off
+
+/run/initialize
+
+# Particle type
+/gps/particle ion
+/gps/ion 27 60 0 0
+/gps/energy 0 keV
+
+/run/beamOn 1000000

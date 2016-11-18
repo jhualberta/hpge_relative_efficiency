@@ -1,0 +1,20 @@
+
+/mydet/sourceName Marinelli 
+/analysis/genSourceFile false
+/analysis/fileName Marinelli
+/gun/MomentumRandom on
+
+/run/initialize
+
+# Particle type
+/gps/particle gamma
+
+# Energy
+
+# Pa234m
+/gps/energy 1001.3 keV
+/run/beamOn 1000000
+
+# K40
+/gps/energy 1461.1 keV
+/run/beamOn 1000000

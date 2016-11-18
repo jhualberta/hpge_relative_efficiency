@@ -1,0 +1,7 @@
+#!/bin/bash
+#make && GeDet geom.g4mac run.mac
+#make && GeDet geom.g4mac vis.mac  
+#make && ./bin/$G4SYSTEM/GeDet geom.g4mac genVisualization.mac
+#make && ./bin/$G4SYSTEM/GeDet geom.g4mac genSourceCurve.mac
+make && ./bin/$G4SYSTEM/GeDet geom.g4mac genRelCurve.mac
+#make && ./bin/$G4SYSTEM/GeDet geom.g4mac genIsotope.mac
